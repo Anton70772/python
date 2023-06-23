@@ -1,15 +1,20 @@
+import psutil
 import subprocess
 from tkinter import *
 
 #def open_app():
     #subprocess.Popen(['python', 't103.py'], shell=True)
 
-def close_app():
-    subprocess.Popen(["TASKKILL", "/F", "/IM", "pythonw.exe"])
+#def close_app():
+    #subprocess.Popen(["TASKKILL", "/F", "/IM", "pythonw.exe", "/T"])
 
 root = Tk()
 root.geometry("450x350")
 
+def close_app():
+    for proc in psutil.process_iter():
+        if "python" in proc.name():
+            proc.terminate()
 
 def open_app():
     open_button.config(state=DISABLED)
